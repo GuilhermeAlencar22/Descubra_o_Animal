@@ -92,7 +92,7 @@ int main() {
     adicionarAnimal(&deserto, "Camelo", (char [4][50]){"É um mamífero", "Seu pelo é marrom", "Tem duas corcovas", "Pode levar pessoas em cima dele"}, 0);
     adicionarAnimal(&deserto, "Escorpiao", (char [3][50]){"É um inseto e aracnideo", "Possui veneno na sua cauda", "É pequeno e tem garras"}, 0);
     adicionarAnimal(&deserto, "Cobra", (char [3][50]){"É um réptil", "Tem presas na sua boca", "Rasteja pela areia"}, 0);
-    adicionarAnimal(&deserto, "Urubu", (char [3][50]){"É um pássaro necrófago", "Pode voar alto", "Tem uma cabeça calva"}, 1);
+    adicionarAnimal(&deserto, "Urubu", (char [3][50]){"É um pássaro grande", "Seu nome é associado com impureza", "Personagem do PicaPau", "Tem uma cabeça calva"}, 1);
 
     adicionarAnimal(&oceano, "Tartaruga", (char [4][50]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
     adicionarAnimal(&oceano, "Tubarao", (char [4][50]){"É um peixe grande", "Possui varias fileiras de dentes afiados", "É conhecido por sua natureza agressiva e ataques a surfistas e banhistas.", ""}, 0);
@@ -105,9 +105,9 @@ int main() {
     adicionarAnimal(&floresta, "Tucano", (char [4][50]){"É uma ave", "Possui um bico longo e colorido", "Muito famoso na Amazônia", "Alimenta-se principalmente de frutas e insetos"}, 1);
 
     adicionarAnimal(&neve, "Urso Polar", (char [4][50]){"É um mamífero carnívoro", "Possui uma camada grossa de gordura para isolamento térmico", "Tem pelagem branca", "Vive nas regiões árticas"}, 0);
-    adicionarAnimal(&neve, "Lobo da Neve", (char [4][50]){"É um mamífero carnívoro", "Possui uma pelagem densa e branca", "Mascote da copa do mundo de 2018", "Vive em matilhas", "Tem excelentes habilidades de caça"}, 1);
-    adicionarAnimal(&neve, "Coelho", (char [4][50]){"É um mamífero herbívoro", "Tem pelagem branca no inverno", "Possui patas traseiras longas para saltar", "Se alimenta principalmente de plantas"}, 0);
-    adicionarAnimal(&neve, "Coruja", (char [4][50]){"É uma ave de rapina", "Tem plumagem branca e densa", "Possui grandes olhos amarelos", "É conhecida por sua excelente visão noturna"}, 0);
+    adicionarAnimal(&neve, "Lobo", (char [4][50]){"É um mamífero carnívoro", "Possui uma pelagem densa e branca", "Mascote da copa do mundo de 2018", "Vive em matilhas", "Tem excelentes habilidades de caça"}, 1);
+    adicionarAnimal(&neve, "Coelho", (char [4][50]){"É um mamífero herbívoro", "Tem pelagem branca no inverno", "Possui patas traseiras longas para saltar", "Caracterizado por seus dentes da frente longos"}, 0);
+    adicionarAnimal(&neve, "Coruja", (char [4][50]){"É uma ave de rapina", "Tem plumagem branca e densa", "Excelente visão noturna", "Sua cabeca pode girar até 270 graus"}, 0);
 
     printf("Bem-vindo ao Descubra o Animal!\n");
 
@@ -147,20 +147,20 @@ int main() {
         while (tentativa < 4 && animalSelecionado->dicas[tentativa][0] != '\0') {
             printf("Dica %d: %s\n", tentativa + 1, animalSelecionado->dicas[tentativa]);
             printf("Digite o nome do animal: ");
-            scanf(" %49s", resposta); // Evita overflow de buffer
+            scanf(" %49s", resposta); 
             if (strcasecmp(resposta, animalSelecionado->nome) == 0) {
-                sleep(2);
-                printf("Parabéns! Você acertou! O animal é: %s\n", animalSelecionado->nome);
+                sleep(5);
+                printf("\nParabéns! Você acertou! O animal é: %s\n", animalSelecionado->nome);
                 break;
             } else {
                 printf("Que pena! Você errou.\n");
                 if (tentativa == 3) {
-                    printf("O animal era: %s\n", animalSelecionado->nome);
-                    sleep(2);
+                    printf("\nO animal era: %s\n", animalSelecionado->nome);
+                    sleep(5);
                     break;
                 } else {
-                    printf("Próxima dica:\n");
-                    sleep(2);
+                    printf("\nPróxima dica:\n");
+                    sleep(5);
                 }
             }
             tentativa++;
