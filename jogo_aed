@@ -1,0 +1,191 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h> // Para usar a função sleep
+
+// Definindo estrutura para armazenar informações sobre os animais
+typedef struct AnimalNode {
+    char nome[50];
+    char dicas[4][100];
+    int dificuldade; // 0 para fácil, 1 para difícil
+    struct AnimalNode *prox;
+} AnimalNode;
+
+// Função para criar um novo nó de animal
+AnimalNode* criarAnimalNode(char nome[50], char dicas[4][100], int dificuldade) {
+    AnimalNode *novoAnimal = (AnimalNode*)malloc(sizeof(AnimalNode));
+    strcpy(novoAnimal->nome, nome);
+    for (int i = 0; i < 4; i++) {
+        strcpy(novoAnimal->dicas[i], dicas[i]);
+    }
+    novoAnimal->dificuldade = dificuldade;
+    novoAnimal->prox = NULL;
+    return novoAnimal;
+}
+
+// Função para adicionar um animal à lista
+void adicionarAnimal(AnimalNode **head, char nome[50], char dicas[4][100], int dificuldade) {
+    AnimalNode *novoAnimal = criarAnimalNode(nome, dicas, dificuldade);
+    if (*head == NULL) {
+        *head = novoAnimal;
+    } else {
+        AnimalNode *temp = *head;
+        while (temp->prox != NULL) {
+            temp = temp->prox;
+        }
+        temp->prox = novoAnimal;
+    }
+}
+
+// Função para liberar a memória alocada para a lista de animais
+void liberarLista(AnimalNode *head) {
+    while (head != NULL) {
+        AnimalNode *temp = head;
+        head = head->prox;
+        free(temp);
+    }
+}
+
+// Função para selecionar aleatoriamente um animal da lista, considerando a dificuldade
+AnimalNode* selecionarAnimalAleatorio(AnimalNode *head, int dificuldade) {
+    // Contando o número de animais com a dificuldade escolhida
+    int numAnimais = 0;
+    AnimalNode *temp = head;
+    while (temp != NULL) {
+        if (temp->dificuldade == dificuldade) {
+            numAnimais++;
+        }
+        temp = temp->prox;
+    }
+
+    // Selecionando aleatoriamente um índice dentro do número de animais com a dificuldade escolhida
+    int indice = rand() % numAnimais;
+    int contagem = 0;
+    temp = head;
+    while (temp != NULL) {
+        if (temp->dificuldade == dificuldade) {
+            if (contagem == indice) {
+                return temp;
+            }
+            contagem++;
+        }
+        temp = temp->prox;
+    }
+
+    return NULL; // Caso algo dê errado
+}
+
+// Função para selecionar uma lista de animais com base no ecossistema
+AnimalNode* selecionarListaEcossistema(int opcaoEcossistema, AnimalNode *deserto, AnimalNode *oceano, AnimalNode *floresta) {
+    switch (opcaoEcossistema) {
+        case 1:
+            return deserto;
+        case 2:
+            return oceano;
+        case 3:
+            return floresta;
+        default:
+            return NULL;
+    }
+}
+
+int main() {
+    // Inicializando o gerador de números aleatórios
+    srand(time(NULL));
+
+    // Criando as listas de animais para cada ecossistema
+    AnimalNode *deserto = NULL;
+    AnimalNode *oceano = NULL;
+    AnimalNode *floresta = NULL;
+
+    // Adicionando os animais às listas
+    adicionarAnimal(&deserto, "Camelo", (char [4][100]){"É um mamífero", "Seu pelo é marrom", "Tem duas corcovas", "Pode levar pessoas em cima dele"}, 0);
+    adicionarAnimal(&deserto, "Escorpiao", (char [3][100]){"É um inseto e aracnideo", "Possui veneno na sua cauda", "É pequeno e tem garras"}, 0);
+    adicionarAnimal(&deserto, "Cobra", (char [3][100]){"É um réptil", "Tem presas na sua boca", "Rasteja pela areia"}, 0);
+    
+
+    adicionarAnimal(&oceano, "Tartaruga", (char [4][100]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
+    adicionarAnimal(&oceano, "Tubarao", (char [4][100]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
+    adicionarAnimal(&oceano, "Golfinho", (char [4][100]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
+    adicionarAnimal(&oceano, "Agua-viva", (char [4][100]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
+    
+
+    adicionarAnimal(&floresta, "Tigre", (char [4][100]){"É um felino", "Possui listras laranjas e pretas", "Habitat natural em florestas tropicais", "Excelente nadador"}, 0);
+    adicionarAnimal(&floresta, "Tigre", (char [4][100]){"É um felino", "Possui listras laranjas e pretas", "Habitat natural em florestas tropicais", "Excelente nadador"}, 0);
+    adicionarAnimal(&floresta, "Tigre", (char [4][100]){"É um felino", "Possui listras laranjas e pretas", "Habitat natural em florestas tropicais", "Excelente nadador"}, 0);
+
+
+
+    printf("Bem-vindo ao Descubra o Animal!\n");
+
+    // Loop principal do jogo
+    while (1) {
+        printf("\nSelecione o ecossistema:\n");
+        printf("1. Deserto\n");
+        printf("2. Oceano\n");
+        printf("3. Floresta\n");
+        printf("4. Sair\n");
+        int opcaoEcossistema;
+        scanf("%d", &opcaoEcossistema);
+
+        if (opcaoEcossistema == 4) {
+            printf("Obrigado por jogar!\n");
+            break;
+        }
+
+        sleep(2); // Pausa de 2 segundos
+
+        int dificuldade;
+        printf("\nSelecione a dificuldade:\n");
+        printf("1. Fácil\n");
+        printf("2. Difícil\n");
+        scanf("%d", &dificuldade);
+
+        sleep(2); // Pausa de 2 segundos
+
+        // Selecionando a lista de animais de acordo com o ecossistema escolhido
+        AnimalNode *listaAnimais = selecionarListaEcossistema(opcaoEcossistema, deserto, oceano, floresta);
+        if (listaAnimais == NULL) {
+            printf("Opção inválida. Por favor, escolha novamente.\n");
+            continue; // Volta ao início do loop para escolher o ecossistema novamente
+        }
+
+        // Selecionando o animal aleatoriamente
+        AnimalNode *animalSelecionado = selecionarAnimalAleatorio(listaAnimais, dificuldade);
+        if (animalSelecionado == NULL) {
+            printf("Não foi possível selecionar um animal. Por favor, tente novamente.\n");
+            continue; // Volta ao início do loop para escolher novamente
+        }
+
+        printf("\nVamos lá! Adivinhe o animal...\n");
+
+        // Lógica para verificar se o jogador acertou o animal
+        char resposta[50];
+        int tentativa = 0;
+        while (tentativa < 4) {
+            printf("Dica %d: %s\n", tentativa + 1, animalSelecionado->dicas[tentativa]);
+            printf("Digite o nome do animal: ");
+            scanf("%s", resposta);
+            if (strcmp(resposta, animalSelecionado->nome) == 0) {
+                printf("Parabéns! Você acertou! O animal é: %s\n", animalSelecionado->nome);
+                break;
+            } else {
+                if (tentativa == 3) {
+                    printf("Que pena! Você errou. O animal era: %s\n", animalSelecionado->nome);
+                    break;
+                }
+                printf("Que pena! Você errou. Tente novamente...\n");
+            }
+            tentativa++;
+            sleep(2); // Pausa de 2 segundos antes de mostrar a próxima dica
+        }
+    }
+
+    // Liberando a memória alocada para as listas de animais
+    liberarLista(deserto);
+    liberarLista(oceano);
+    liberarLista(floresta);
+
+    return 0;
+}
