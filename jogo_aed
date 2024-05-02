@@ -1,19 +1,18 @@
-#include <stdio.h>
+ #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h> 
 #include <time.h>
-#include <unistd.h> // Para usar a função sleep
+#include <unistd.h> 
 
-// Definindo estrutura para armazenar informações sobre os animais
 typedef struct AnimalNode {
     char nome[50];
-    char dicas[4][100];
-    int dificuldade; // 0 para fácil, 1 para difícil
+    char dicas[4][50];
+    int dificuldade; 
     struct AnimalNode *prox;
 } AnimalNode;
 
-// Função para criar um novo nó de animal
-AnimalNode* criarAnimalNode(char nome[50], char dicas[4][100], int dificuldade) {
+AnimalNode* criarAnimalNode(char nome[50], char dicas[4][50], int dificuldade) {
     AnimalNode *novoAnimal = (AnimalNode*)malloc(sizeof(AnimalNode));
     strcpy(novoAnimal->nome, nome);
     for (int i = 0; i < 4; i++) {
@@ -24,8 +23,7 @@ AnimalNode* criarAnimalNode(char nome[50], char dicas[4][100], int dificuldade) 
     return novoAnimal;
 }
 
-// Função para adicionar um animal à lista
-void adicionarAnimal(AnimalNode **head, char nome[50], char dicas[4][100], int dificuldade) {
+void adicionarAnimal(AnimalNode **head, char nome[50], char dicas[4][50], int dificuldade) {
     AnimalNode *novoAnimal = criarAnimalNode(nome, dicas, dificuldade);
     if (*head == NULL) {
         *head = novoAnimal;
@@ -38,7 +36,6 @@ void adicionarAnimal(AnimalNode **head, char nome[50], char dicas[4][100], int d
     }
 }
 
-// Função para liberar a memória alocada para a lista de animais
 void liberarLista(AnimalNode *head) {
     while (head != NULL) {
         AnimalNode *temp = head;
@@ -47,9 +44,7 @@ void liberarLista(AnimalNode *head) {
     }
 }
 
-// Função para selecionar aleatoriamente um animal da lista, considerando a dificuldade
 AnimalNode* selecionarAnimalAleatorio(AnimalNode *head, int dificuldade) {
-    // Contando o número de animais com a dificuldade escolhida
     int numAnimais = 0;
     AnimalNode *temp = head;
     while (temp != NULL) {
@@ -59,7 +54,10 @@ AnimalNode* selecionarAnimalAleatorio(AnimalNode *head, int dificuldade) {
         temp = temp->prox;
     }
 
-    // Selecionando aleatoriamente um índice dentro do número de animais com a dificuldade escolhida
+    if (numAnimais == 0) {
+        return NULL;
+    }
+
     int indice = rand() % numAnimais;
     int contagem = 0;
     temp = head;
@@ -73,107 +71,106 @@ AnimalNode* selecionarAnimalAleatorio(AnimalNode *head, int dificuldade) {
         temp = temp->prox;
     }
 
-    return NULL; // Caso algo dê errado
+    return NULL;
 }
 
-// Função para selecionar uma lista de animais com base no ecossistema
-AnimalNode* selecionarListaEcossistema(int opcaoEcossistema, AnimalNode *deserto, AnimalNode *oceano, AnimalNode *floresta) {
+AnimalNode* selecionarListaEcossistema(int opcaoEcossistema, AnimalNode *deserto, AnimalNode *oceano, AnimalNode *floresta, AnimalNode *neve) {
     switch (opcaoEcossistema) {
-        case 1:
-            return deserto;
-        case 2:
-            return oceano;
-        case 3:
-            return floresta;
-        default:
-            return NULL;
+        case 1: return deserto;
+        case 2: return oceano;
+        case 3: return floresta;
+        case 4: return neve;
+        default: return NULL;
     }
 }
 
 int main() {
-    // Inicializando o gerador de números aleatórios
     srand(time(NULL));
 
-    // Criando as listas de animais para cada ecossistema
-    AnimalNode *deserto = NULL;
-    AnimalNode *oceano = NULL;
-    AnimalNode *floresta = NULL;
+    AnimalNode *deserto = NULL, *oceano = NULL, *floresta = NULL, *neve = NULL;
 
-    // Adicionando os animais às listas
-    adicionarAnimal(&deserto, "Camelo", (char [4][100]){"É um mamífero", "Seu pelo é marrom", "Tem duas corcovas", "Pode levar pessoas em cima dele"}, 0);
-    adicionarAnimal(&deserto, "Escorpiao", (char [3][100]){"É um inseto e aracnideo", "Possui veneno na sua cauda", "É pequeno e tem garras"}, 0);
-    adicionarAnimal(&deserto, "Cobra", (char [3][100]){"É um réptil", "Tem presas na sua boca", "Rasteja pela areia"}, 0);
-    
-    adicionarAnimal(&oceano, "Tartaruga", (char [4][100]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
-    adicionarAnimal(&oceano, "Tubarao", (char [4][100]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
-    adicionarAnimal(&oceano, "Golfinho", (char [4][100]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
-    adicionarAnimal(&oceano, "Agua-viva", (char [4][100]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
-    
-    adicionarAnimal(&floresta, "Leopardo", (char [4][100]){"É um felino", "Tem manchas escuras na pelagem", "É ágil e excelente escalador", "Vive em áreas florestais"}, 1);
-    adicionarAnimal(&floresta, "Macaco", (char [4][100]){"É um mamífero", "Possui cauda preênsil", "É altamente sociável", "Alimenta-se principalmente de frutas"}, 0);
-    adicionarAnimal(&floresta, "Tucano", (char [4][100]){"É uma ave", "Possui um bico longo e colorido", "Tem uma vocalização característica", "Alimenta-se principalmente de frutas e insetos"}, 0);
-    adicionarAnimal(&floresta, "Jaguar", (char [4][100]){"É um felino", "É o terceiro maior felino do mundo", "Tem manchas escuras na pelagem", "É excelente nadador"}, 1);
+    adicionarAnimal(&deserto, "Camelo", (char [4][50]){"É um mamífero", "Seu pelo é marrom", "Tem duas corcovas", "Pode levar pessoas em cima dele"}, 0);
+    adicionarAnimal(&deserto, "Escorpiao", (char [3][50]){"É um inseto e aracnideo", "Possui veneno na sua cauda", "É pequeno e tem garras"}, 0);
+    adicionarAnimal(&deserto, "Cobra", (char [3][50]){"É um réptil", "Tem presas na sua boca", "Rasteja pela areia"}, 0);
+    adicionarAnimal(&deserto, "Urubu", (char [3][50]){"É um pássaro necrófago", "Pode voar alto", "Tem uma cabeça calva"}, 1);
+
+    adicionarAnimal(&oceano, "Tartaruga", (char [4][50]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
+    adicionarAnimal(&oceano, "Tubarao", (char [4][50]){"É um peixe grande", "Possui varias fileiras de dentes afiados", "É conhecido por sua natureza agressiva e ataques a surfistas e banhistas.", ""}, 0);
+    adicionarAnimal(&oceano, "Agua-viva", (char [4][50]){"É um animal gelatinoso", "Tem tentáculos que podem picar", "Utiliza a correnteza do oceano para se mover e se alimentar", "Principal fonte de alimento das Tartarugas"}, 0);
+    adicionarAnimal(&oceano, "Golfinho", (char [4][50]){"É um mamífero marinho", "Tem um nariz distintivo em forma de garrafa.", "É altamente inteligente e social", "Parente das Baleias"}, 1);
+
+    adicionarAnimal(&floresta, "Onça", (char [4][50]){"É um felino", "É bastante famoso no Brasil", "Tem manchas escuras no pelo", "É excelente um nadador"}, 0);
+    adicionarAnimal(&floresta, "Leopardo", (char [4][50]){"É um felino", "Tem manchas escuras na pelagem", "É ágil e excelente escalador", "Vive em áreas florestais"}, 0);
+    adicionarAnimal(&floresta, "Macaco", (char [4][50]){"É um mamífero", "Possui cauda preênsil", "É altamente sociável", "Alimenta-se principalmente de frutas"}, 0);
+    adicionarAnimal(&floresta, "Tucano", (char [4][50]){"É uma ave", "Possui um bico longo e colorido", "Muito famoso na Amazônia", "Alimenta-se principalmente de frutas e insetos"}, 1);
+
+    adicionarAnimal(&neve, "Urso Polar", (char [4][50]){"É um mamífero carnívoro", "Possui uma camada grossa de gordura para isolamento térmico", "Tem pelagem branca", "Vive nas regiões árticas"}, 0);
+    adicionarAnimal(&neve, "Lobo da Neve", (char [4][50]){"É um mamífero carnívoro", "Possui uma pelagem densa e branca", "Mascote da copa do mundo de 2018", "Vive em matilhas", "Tem excelentes habilidades de caça"}, 1);
+    adicionarAnimal(&neve, "Coelho", (char [4][50]){"É um mamífero herbívoro", "Tem pelagem branca no inverno", "Possui patas traseiras longas para saltar", "Se alimenta principalmente de plantas"}, 0);
+    adicionarAnimal(&neve, "Coruja", (char [4][50]){"É uma ave de rapina", "Tem plumagem branca e densa", "Possui grandes olhos amarelos", "É conhecida por sua excelente visão noturna"}, 0);
 
     printf("Bem-vindo ao Descubra o Animal!\n");
 
-    // Loop principal do jogo
+    int opcaoEcossistema, dificuldade;
     while (1) {
         printf("\nSelecione o ecossistema:\n");
-        printf("1. Deserto\n");
-        printf("2. Oceano\n");
-        printf("3. Floresta\n");
-        printf("4. Sair\n");
-        int opcaoEcossistema;
+        sleep(2);
+        printf("1. Deserto\n2. Oceano\n3. Floresta\n4. Neve\n5. Sair\n");
         scanf("%d", &opcaoEcossistema);
 
-        if (opcaoEcossistema == 4) {
+        if (opcaoEcossistema == 5) {
             printf("Obrigado por jogar!\n");
             break;
         }
 
-        sleep(2); // Pausa de 2 segundos
+        if (opcaoEcossistema < 1 || opcaoEcossistema > 4) {
+            printf("Opção inválida, por favor escolha uma opção válida.\n");
+            continue;
+        }
 
-        AnimalNode *listaAnimaisEcossistema = selecionarListaEcossistema(opcaoEcossistema, deserto, oceano, floresta);
-        
-        int dificuldade;
+        AnimalNode *listaAnimaisEcossistema = selecionarListaEcossistema(opcaoEcossistema, deserto, oceano, floresta, neve);
+
         printf("\nSelecione a dificuldade:\n");
-        printf("1. Fácil\n");
-        printf("2. Difícil\n");
+        printf("1. Fácil\n2. Difícil\n");
         scanf("%d", &dificuldade);
+        dificuldade = dificuldade == 2 ? 1 : 0; 
 
-        sleep(2); // Pausa de 2 segundos
-
-        // Selecionando o animal aleatoriamente
         AnimalNode *animalSelecionado = selecionarAnimalAleatorio(listaAnimaisEcossistema, dificuldade);
+        if (animalSelecionado == NULL) {
+            printf("Não há animais disponíveis para a dificuldade selecionada neste ecossistema.\n");
+            continue;
+        }
 
         printf("\nVamos lá! Adivinhe o animal...\n");
-
-        // Lógica para verificar se o jogador acertou o animal
         char resposta[50];
         int tentativa = 0;
-        while (tentativa < 4) {
+        while (tentativa < 4 && animalSelecionado->dicas[tentativa][0] != '\0') {
             printf("Dica %d: %s\n", tentativa + 1, animalSelecionado->dicas[tentativa]);
             printf("Digite o nome do animal: ");
-            scanf("%s", resposta);
-            if (strcmp(resposta, animalSelecionado->nome) == 0) {
+            scanf(" %49s", resposta); // Evita overflow de buffer
+            if (strcasecmp(resposta, animalSelecionado->nome) == 0) {
+                sleep(2);
                 printf("Parabéns! Você acertou! O animal é: %s\n", animalSelecionado->nome);
                 break;
             } else {
+                printf("Que pena! Você errou.\n");
                 if (tentativa == 3) {
-                    printf("Que pena! Você errou. O animal era: %s\n", animalSelecionado->nome);
+                    printf("O animal era: %s\n", animalSelecionado->nome);
+                    sleep(2);
                     break;
+                } else {
+                    printf("Próxima dica:\n");
+                    sleep(2);
                 }
-                printf("Que pena! Você errou. Tente novamente...\n");
             }
             tentativa++;
-            sleep(2); // Pausa de 2 segundos antes de mostrar a próxima dica
         }
     }
 
-    // Liberando a memória alocada para as listas de animais
     liberarLista(deserto);
     liberarLista(oceano);
     liberarLista(floresta);
+    liberarLista(neve);
 
     return 0;
 }
