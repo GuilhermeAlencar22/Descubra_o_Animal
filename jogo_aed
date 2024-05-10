@@ -29,12 +29,12 @@ void adicionarAnimalOrdenado(Node **head, char nome[50], char dicas[4][50], int 
         novoAnimal->prox = *head;
         *head = novoAnimal;
     } else {
-        Node *current = *head;
-        while (current->prox != NULL && strcasecmp(current->prox->nome, nome) < 0) {
-            current = current->prox;
+        Node *atual = *head;
+        while (atual->prox != NULL && strcasecmp(atual->prox->nome, nome) < 0) {
+            atual = atual->prox;
         }
-        novoAnimal->prox = current->prox;
-        current->prox = novoAnimal;
+        novoAnimal->prox = atual->prox;
+        atual->prox = novoAnimal;
     }
 }
 
@@ -82,6 +82,7 @@ Node* selecionarListaEcossistema(int opcaoEcossistema, Node *deserto, Node *ocea
         case 2: return oceano;
         case 3: return floresta;
         case 4: return neve;
+        case 5: return montanha;
         default: return NULL;
     }
 }
@@ -89,7 +90,7 @@ Node* selecionarListaEcossistema(int opcaoEcossistema, Node *deserto, Node *ocea
 int main() {
     srand(time(NULL));
 
-    Node *deserto = NULL, *oceano = NULL, *floresta = NULL, *neve = NULL;
+    Node *deserto = NULL, *oceano = NULL, *floresta = NULL, *neve = NULL, *montanha = NULL;
 
     adicionarAnimalOrdenado(&deserto, "Camelo", (char [4][50]){"É um mamífero", "Seu pelo é marrom", "Tem duas corcovas", "Pode levar pessoas em cima dele"}, 0);
     adicionarAnimalOrdenado(&deserto, "Escorpiao", (char [4][50]){"É um inseto e aracnideo", "Possui veneno na sua cauda", "É pequeno e tem garras", "Vive em ambientes áridos"}, 0);
@@ -97,8 +98,8 @@ int main() {
     adicionarAnimalOrdenado(&deserto, "Urubu", (char [4][50]){"É um pássaro grande", "Seu nome é associado com impureza", "Personagem do PicaPau", "Tem uma cabeça calva"}, 1);
     
     adicionarAnimalOrdenado(&oceano, "Tartaruga", (char [4][50]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
-    adicionarAnimalOrdenado(&oceano, "Tubarao", (char [4][50]){"É um peixe grande", "Possui varias fileiras de dentes afiados", "É conhecido por sua natureza agressiva e ataques a surfistas e banhistas.", ""}, 0);
-    adicionarAnimalOrdenado(&oceano, "Agua-viva", (char [4][50]){"É um animal gelatinoso", "Tem tentáculos que podem picar", "Utiliza a correnteza do oceano para se mover e se alimentar", "Principal fonte de alimento das Tartarugas"}, 0);
+    adicionarAnimalOrdenado(&oceano, "Tubarao", (char [4][50]){"É um peixe grande", "Possui varias fileiras de dentes afiados", "É conhecido por ataques a surfistas e banhistas.", ""}, 0);
+    adicionarAnimalOrdenado(&oceano, "Agua-viva", (char [4][50]){"É um animal gelatinoso", "Tem tentáculos que podem picar", "Usa a corrente da agua para se mover e alimentar", "Principal fonte de alimento das Tartarugas"}, 0);
     adicionarAnimalOrdenado(&oceano, "Golfinho", (char [4][50]){"É um mamífero marinho", "Tem um nariz distintivo em forma de garrafa.", "É altamente inteligente e social", "Parente das Baleias"}, 1);
     adicionarAnimalOrdenado(&oceano, "Peixe palhaco", (char [4][50]){"É um peixe", "Ele convive em harmonia com a anemona(venenosa)", "Famoso pelo filme Procurando Nemo", "Peixe laranja e branco"}, 1);
 
@@ -108,30 +109,37 @@ int main() {
     adicionarAnimalOrdenado(&floresta, "Tucano", (char [4][50]){"É uma ave", "Possui um bico longo e colorido", "Muito famoso na Amazônia", "Alimenta-se principalmente de frutas e insetos"}, 1);
     adicionarAnimalOrdenado(&floresta, "Tamandua", (char [4][50]){"É uma mamífero", "Tem uma lingua grande para comer sua presa", "Seu nariz é otimo em achar insetos", "Alimenta-se principalmente de formigas"}, 1);
 
-    adicionarAnimalOrdenado(&neve, "Urso Polar", (char [4][50]){"É um mamífero carnívoro", "Possui uma camada grossa de gordura para isolamento térmico", "Tem pelagem branca", "Vive nas regiões árticas"}, 0);
+    adicionarAnimalOrdenado(&neve, "Urso Polar", (char [4][50]){"É um mamífero carnívoro", "Tem uma camada de gordura para isolamento térmico", "Tem pelagem branca", "Vive nas regiões árticas"}, 0);
     adicionarAnimalOrdenado(&neve, "Lobo", (char [4][50]){"É um mamífero carnívoro", "Possui uma pelagem densa e branca", "Mascote da copa do mundo de 2018", "Vive em matilhas"}, 1);
     adicionarAnimalOrdenado(&neve, "Coelho", (char [4][50]){"É um mamífero herbívoro", "Tem pelagem branca no inverno", "Possui patas traseiras longas para saltar", "Caracterizado por seus dentes da frente longos"}, 0);
     adicionarAnimalOrdenado(&neve, "Coruja", (char [4][50]){"É uma ave de rapina", "Tem plumagem branca e densa", "Excelente visão noturna", "Sua cabeca pode girar até 270 graus"}, 0);
+    
+    adicionarAnimalOrdenado(&montanha, "Cabra", (char [4][50]){"É um mamífero herbivoro", "Tem um grande chifre", "Possui habilidades para escalar montanhas", "Substantivo feminino de bode"}, 1);
+    adicionarAnimalOrdenado(&montanha, "Aguia", (char [4][50]){"É uma ave de rapina", "Possuem uma visão bastante eficiente", "contam com bicos fortes e garras afiadas", "Simbolo dos Estados Unidos"}, 0);
+    adicionarAnimalOrdenado(&montanha, "Cobra", (char [4][50]){"É um réptil", "Tem presas na sua boca", "Rasteja pela areia", "Algumas têm um chocalho na cauda"}, 0);
 
+    printf("\n--------------------------------\n");
     printf("Bem-vindo ao Descubra o Animal!\n");
 
     int opcaoEcossistema, dificuldade;
     while (1) {
         printf("\nSelecione o ecossistema:\n");
-        printf("1. Deserto\n2. Oceano\n3. Floresta\n4. Neve\n5. Sair\n");
+        printf("--------------------------------\n");
+        printf("1. Deserto\n2. Oceano\n3. Floresta\n4. Neve\n5. Montanha\n6. Sair\n");
         scanf("%d", &opcaoEcossistema);
 
         if (opcaoEcossistema == 5) {
+            printf("\n--------------------------------\n");
             printf("Obrigado por jogar!\n");
             break;
         }
 
-        if (opcaoEcossistema < 1 || opcaoEcossistema > 4) {
-            printf("Opção inválida, por favor escolha uma opção válida.\n");
+        if (opcaoEcossistema < 1 || opcaoEcossistema > 5) {
+            printf("Opção inválida\n");
             continue;
         }
 
-        Node *listaAnimaisEcossistema = selecionarListaEcossistema(opcaoEcossistema, deserto, oceano, floresta, neve);
+        Node *listaAnimaisEcossistema = selecionarListaEcossistema(opcaoEcossistema, deserto, oceano, floresta, neve, montanha);
 
         printf("\nSelecione a dificuldade:\n");
         printf("1. Fácil\n2. Difícil\n");
@@ -171,6 +179,7 @@ int main() {
     liberarLista(oceano);
     liberarLista(floresta);
     liberarLista(neve);
+    liberarLista(montanha);
 
     return 0;
 }
