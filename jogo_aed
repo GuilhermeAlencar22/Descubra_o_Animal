@@ -76,7 +76,7 @@ Node* selecionarAnimalAleatorio(Node *head, int dificuldade) {
     return NULL;
 }
 
-Node* selecionarListaEcossistema(int opcaoEcossistema, Node *deserto, Node *oceano, Node *floresta, Node *neve) {
+Node* selecionarListaEcossistema(int opcaoEcossistema, Node *deserto, Node *oceano, Node *floresta, Node *neve, Node *montanha) {
     switch (opcaoEcossistema) {
         case 1: return deserto;
         case 2: return oceano;
@@ -128,13 +128,13 @@ int main() {
         printf("1. Deserto\n2. Oceano\n3. Floresta\n4. Neve\n5. Montanha\n6. Sair\n");
         scanf("%d", &opcaoEcossistema);
 
-        if (opcaoEcossistema == 5) {
+        if (opcaoEcossistema == 6) {
             printf("\n--------------------------------\n");
             printf("Obrigado por jogar!\n");
             break;
         }
 
-        if (opcaoEcossistema < 1 || opcaoEcossistema > 5) {
+        if (opcaoEcossistema < 1 || opcaoEcossistema > 6) {
             printf("Opção inválida\n");
             continue;
         }
