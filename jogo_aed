@@ -99,7 +99,7 @@ int main() {
     
     adicionarAnimalOrdenado(&oceano, "Tartaruga", (char [4][50]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
     adicionarAnimalOrdenado(&oceano, "Tubarao", (char [4][50]){"É um peixe grande", "Possui varias fileiras de dentes afiados", "É conhecido por ataques a surfistas e banhistas.", ""}, 0);
-    adicionarAnimalOrdenado(&oceano, "Agua-viva", (char [4][50]){"É um animal gelatinoso", "Tem tentáculos que podem picar", "Usa a corrente da agua para se mover e alimentar", "Principal fonte de alimento das Tartarugas"}, 0);
+    adicionarAnimalOrdenado(&oceano, "Agua viva", (char [4][50]){"É um animal gelatinoso", "Tem tentáculos que podem picar", "Usa a corrente da agua para se mover e alimentar", "Principal fonte de alimento das Tartarugas"}, 0);
     adicionarAnimalOrdenado(&oceano, "Golfinho", (char [4][50]){"É um mamífero marinho", "Tem um nariz distintivo em forma de garrafa.", "É altamente inteligente e social", "Parente das Baleias"}, 1);
     adicionarAnimalOrdenado(&oceano, "Peixe palhaco", (char [4][50]){"É um peixe", "Ele convive em harmonia com a anemona(venenosa)", "Famoso pelo filme Procurando Nemo", "Peixe laranja e branco"}, 1);
 
@@ -118,60 +118,101 @@ int main() {
     adicionarAnimalOrdenado(&montanha, "Aguia", (char [4][50]){"É uma ave de rapina", "Possuem uma visão bastante eficiente", "contam com bicos fortes e garras afiadas", "Simbolo dos Estados Unidos"}, 0);
     adicionarAnimalOrdenado(&montanha, "Cobra", (char [4][50]){"É um réptil", "Tem presas na sua boca", "Rasteja pela areia", "Algumas têm um chocalho na cauda"}, 0);
 
-    printf("\n--------------------------------\n");
-    printf("Bem-vindo ao Descubra o Animal!\n");
 
-    int opcaoEcossistema, dificuldade;
-    while (1) {
-        printf("\nSelecione o ecossistema:\n");
-        printf("--------------------------------\n");
-        printf("1. Deserto\n2. Oceano\n3. Floresta\n4. Neve\n5. Montanha\n6. Sair\n");
-        scanf("%d", &opcaoEcossistema);
+    while (1) { // Loop para reiniciar o jogo
+        char jogador1[50], jogador2[50];
+        int pontosJogador1 = 0, pontosJogador2 = 0;
+        char *jogadorAtual = jogador1;
+        int *pontosAtual = &pontosJogador1;
 
-        if (opcaoEcossistema == 6) {
-            printf("\n--------------------------------\n");
-            printf("Obrigado por jogar!\n");
-            break;
-        }
+        printf("Digite o nome do jogador 1: ");
+        scanf("%49s", jogador1);
+        printf("Digite o nome do jogador 2: ");
+        scanf("%49s", jogador2);
 
-        if (opcaoEcossistema < 1 || opcaoEcossistema > 6) {
-            printf("Opção inválida\n");
-            continue;
-        }
+        printf("\n--------------------------------\n");
+        printf("Bem-vindo ao Descubra o Animal!\n");
 
-        Node *listaAnimaisEcossistema = selecionarListaEcossistema(opcaoEcossistema, deserto, oceano, floresta, neve, montanha);
-
-        printf("\nSelecione a dificuldade:\n");
-        printf("1. Fácil\n2. Difícil\n");
-        scanf("%d", &dificuldade);
-        dificuldade = dificuldade == 2 ? 1 : 0; 
-
-        Node *animalSelecionado = selecionarAnimalAleatorio(listaAnimaisEcossistema, dificuldade);
-        if (animalSelecionado == NULL) {
-            printf("Não há animais disponíveis para a dificuldade selecionada neste ecossistema.\n");
-            continue;
-        }
-
-        printf("\nVamos lá! Adivinhe o animal...\n");
+        int opcaoEcossistema, dificuldade;
         char resposta[50];
-        int tentativa = 0;
-        while (tentativa < 4 && animalSelecionado->dicas[tentativa][0] != '\0') {
-            printf("Dica %d: %s\n", tentativa + 1, animalSelecionado->dicas[tentativa]);
-            printf("Digite o nome do animal: ");
-            scanf(" %49s", resposta); 
-            if (strcasecmp(resposta, animalSelecionado->nome) == 0) {
-                printf("\nParabéns! Você acertou! O animal é: %s\n", animalSelecionado->nome);
-                break;
-            } else {
-                printf("Que pena! Você errou.\n");
-                if (tentativa == 3) {
-                    printf("\nO animal era: %s\n", animalSelecionado->nome);
+        int tentativa, acertou = 0, turnos = 0;
+
+        while (turnos < 2) { // Cada jogador joga uma vez antes de verificar o resultado
+            printf("\nAgora é a vez de %s\n", jogadorAtual);
+
+            printf("\nSelecione o ecossistema:\n");
+            printf("1. Deserto\n2. Oceano\n3. Floresta\n4. Neve\n5. Montanha\n6. Sair\n");
+            scanf("%d", &opcaoEcossistema);
+
+            if (opcaoEcossistema == 6) {
+                break; // Sair do jogo
+            }
+
+            Node *listaAnimaisEcossistema = selecionarListaEcossistema(opcaoEcossistema, deserto, oceano, floresta, neve, montanha);
+            printf("\nSelecione a dificuldade:\n");
+            printf("1. Fácil\n2. Difícil\n");
+            scanf("%d", &dificuldade);
+            dificuldade = dificuldade == 2 ? 1 : 0;
+
+            Node *animalSelecionado = selecionarAnimalAleatorio(listaAnimaisEcossistema, dificuldade);
+            if (animalSelecionado == NULL) {
+                printf("Não há animais disponíveis para a dificuldade selecionada neste ecossistema.\n");
+                continue;
+            }
+
+            printf("\nVamos lá! Adivinhe o animal...\n");
+            tentativa = 0;
+            acertou = 0;
+            while (tentativa < 4 && animalSelecionado->dicas[tentativa][0] != '\0') {
+                printf("Dica %d: %s\n", tentativa + 1, animalSelecionado->dicas[tentativa]);
+                printf("Digite o nome do animal: ");
+                scanf(" %49s", resposta);
+                if (strcasecmp(resposta, animalSelecionado->nome) == 0) {
+                    printf("\nParabéns! Você acertou! O animal é: %s\n", animalSelecionado->nome);
+                    (*pontosAtual)++;
+                    acertou = 1; // Correct answer, continue the turn
                     break;
                 } else {
-                    printf("\nPróxima dica:\n");
+                    printf("Que pena! Você errou.\n");
+                    if (tentativa == 3) {
+                        printf("\nO animal era: %s\n", animalSelecionado->nome);
+                    } else {
+                        printf("\nPróxima dica:\n");
+                    }
+                }
+                tentativa++;
+            }
+            if (!acertou || tentativa == 4) {
+                printf("\n%s finalizou a rodada com %d pontos.\n", jogadorAtual, *pontosAtual);
+                turnos++;
+                if (jogadorAtual == jogador1) {
+                    jogadorAtual = jogador2;
+                    pontosAtual = &pontosJogador2;
+                } else {
+                    jogadorAtual = jogador1;
+                    pontosAtual = &pontosJogador1;
                 }
             }
-            tentativa++;
+        }
+
+        if (opcaoEcossistema != 6) {
+            printf("Placar final: %s %d x %d %s\n", jogador1, pontosJogador1, pontosJogador2, jogador2);
+            if (pontosJogador1 > pontosJogador2) {
+                printf("O vencedor é %s!\n", jogador1);
+            } else if (pontosJogador2 > pontosJogador1) {
+                printf("O vencedor é %s!\n", jogador2);
+            } else {
+                printf("Empate! O jogo será reiniciado.\n\n");
+                continue; // Reinicia o jogo se for empate
+            }
+
+            printf("Deseja jogar novamente? (S/N): ");
+            char choice;
+            scanf(" %c", &choice);
+            if (choice == 'N' || choice == 'n') {
+                printf("Obrigado por jogar!\n");
+                break;
+            }
         }
     }
 
