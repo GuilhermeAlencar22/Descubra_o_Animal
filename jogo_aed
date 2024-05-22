@@ -93,33 +93,32 @@ int main() {
     Node *deserto = NULL, *oceano = NULL, *floresta = NULL, *neve = NULL, *montanha = NULL;
 
     adicionarAnimalOrdenado(&deserto, "Camelo", (char [4][50]){"É um mamífero", "Seu pelo é marrom", "Tem duas corcovas", "Pode levar pessoas em cima dele"}, 0);
-    adicionarAnimalOrdenado(&deserto, "Escorpiao", (char [4][50]){"É um inseto e aracnideo", "Possui veneno na sua cauda", "É pequeno e tem garras", "Vive em ambientes áridos"}, 0);
+    adicionarAnimalOrdenado(&deserto, "Escorpiao", (char [4][50]){"É um inseto", "Possui veneno na sua cauda", "É pequeno e tem garras", "Vive em ambientes áridos"}, 0);
     adicionarAnimalOrdenado(&deserto, "Cobra", (char [4][50]){"É um réptil", "Tem presas na sua boca", "Rasteja pela areia", "Algumas têm um chocalho na cauda"}, 0);
-    adicionarAnimalOrdenado(&deserto, "Urubu", (char [4][50]){"É um pássaro grande", "Seu nome é associado com impureza", "Personagem do PicaPau", "Tem uma cabeça calva"}, 1);
+    adicionarAnimalOrdenado(&deserto, "Urubu", (char [4][50]){"É um pássaro grande", "Personagem do PicaPau", "Seu nome é associado a impureza", "Tem uma cabeça calva"}, 1);
     
     adicionarAnimalOrdenado(&oceano, "Tartaruga", (char [4][50]){"Tem nadadeiras em forma de remos", "Tem um casco protetor", "Se encolhe para se proteger no casco", ""}, 0);
     adicionarAnimalOrdenado(&oceano, "Tubarao", (char [4][50]){"É um peixe grande", "Possui varias fileiras de dentes afiados", "É conhecido por ataques a surfistas e banhistas.", ""}, 0);
-    adicionarAnimalOrdenado(&oceano, "Agua viva", (char [4][50]){"É um animal gelatinoso", "Tem tentáculos que podem picar", "Usa a corrente da agua para se mover e alimentar", "Principal fonte de alimento das Tartarugas"}, 0);
+    adicionarAnimalOrdenado(&oceano, "Agua viva", (char [4][50]){"É um animal gelatinoso", "Tem tentáculos que podem dar choque", "Usa a corrente da agua para se mover e alimentar", "Principal fonte de alimento das Tartarugas"}, 0);
     adicionarAnimalOrdenado(&oceano, "Golfinho", (char [4][50]){"É um mamífero marinho", "Tem um nariz distintivo em forma de garrafa.", "É altamente inteligente e social", "Parente das Baleias"}, 1);
     adicionarAnimalOrdenado(&oceano, "Peixe palhaco", (char [4][50]){"É um peixe", "Ele convive em harmonia com a anemona(venenosa)", "Famoso pelo filme Procurando Nemo", "Peixe laranja e branco"}, 1);
 
-    adicionarAnimalOrdenado(&floresta, "Onca", (char [4][50]){"É um felino", "É bastante famoso no Brasil", "Tem manchas escuras no pelo", "É excelente um nadador"}, 0);
-    adicionarAnimalOrdenado(&floresta, "Arara", (char [4][50]){"É um passaro", "Esta na beira da extinção", "É protagonista no filme Rio", "Tem várias cores"}, 0);
-    adicionarAnimalOrdenado(&floresta, "Macaco", (char [4][50]){"É um mamífero", "Possui cauda preênsil", "É altamente sociável", "Alimenta-se principalmente de frutas"}, 0);
+    adicionarAnimalOrdenado(&floresta, "Onca", (char [4][50]){"É um felino", "Tem manchas escuras no pelo", "Esta na nota de 50 reais", "É excelente um nadador"}, 0);
+    adicionarAnimalOrdenado(&floresta, "Arara", (char [4][50]){"É um passaro", "Esta quase em extinção", "É protagonista no filme Rio", "Tem várias cores"}, 0);
+    adicionarAnimalOrdenado(&floresta, "Macaco", (char [4][50]){"É um mamífero", "Gosta de banana", "É altamente sociável", "Alimenta-se principalmente de frutas"}, 0);
     adicionarAnimalOrdenado(&floresta, "Tucano", (char [4][50]){"É uma ave", "Possui um bico longo e colorido", "Muito famoso na Amazônia", "Alimenta-se principalmente de frutas e insetos"}, 1);
     adicionarAnimalOrdenado(&floresta, "Tamandua", (char [4][50]){"É uma mamífero", "Tem uma lingua grande para comer sua presa", "Seu nariz é otimo em achar insetos", "Alimenta-se principalmente de formigas"}, 1);
 
-    adicionarAnimalOrdenado(&neve, "Urso Polar", (char [4][50]){"É um mamífero carnívoro", "Tem uma camada de gordura para isolamento térmico", "Tem pelagem branca", "Vive nas regiões árticas"}, 0);
+    adicionarAnimalOrdenado(&neve, "Urso Polar", (char [4][50]){"É um mamífero carnívoro", "Tem uma camada de gordura para isolamento térmico", "Tem pelagem branca", "Adora comer focas"}, 0);
     adicionarAnimalOrdenado(&neve, "Lobo", (char [4][50]){"É um mamífero carnívoro", "Possui uma pelagem densa e branca", "Mascote da copa do mundo de 2018", "Vive em matilhas"}, 1);
     adicionarAnimalOrdenado(&neve, "Coelho", (char [4][50]){"É um mamífero herbívoro", "Tem pelagem branca no inverno", "Possui patas traseiras longas para saltar", "Caracterizado por seus dentes da frente longos"}, 0);
     adicionarAnimalOrdenado(&neve, "Coruja", (char [4][50]){"É uma ave de rapina", "Tem plumagem branca e densa", "Excelente visão noturna", "Sua cabeca pode girar até 270 graus"}, 0);
     
-    adicionarAnimalOrdenado(&montanha, "Cabra", (char [4][50]){"É um mamífero herbivoro", "Tem um grande chifre", "Possui habilidades para escalar montanhas", "Substantivo feminino de bode"}, 1);
-    adicionarAnimalOrdenado(&montanha, "Aguia", (char [4][50]){"É uma ave de rapina", "Possuem uma visão bastante eficiente", "contam com bicos fortes e garras afiadas", "Simbolo dos Estados Unidos"}, 0);
-    adicionarAnimalOrdenado(&montanha, "Cobra", (char [4][50]){"É um réptil", "Tem presas na sua boca", "Rasteja pela areia", "Algumas têm um chocalho na cauda"}, 0);
+    adicionarAnimalOrdenado(&montanha, "Cabra", (char [4][50]){"É um mamífero herbivoro", "Tem um grande chifre", "Possui habilidades para escalar montanhas", "O feminino de bode"}, 1);
+    adicionarAnimalOrdenado(&montanha, "Aguia", (char [4][50]){"É uma ave de rapina", "Possuem uma visão bastante eficiente", "Simbolo dos Estados Unidos", "Contam com bicos fortes e garras afiadas"}, 0);
+    adicionarAnimalOrdenado(&montanha, "Cobra", (char [4][50]){"É um réptil", "Tem presas na sua boca", "Rasteja pelo chao", "Algumas têm um chocalho na cauda"}, 0);
 
-
-    while (1) { // Loop para reiniciar o jogo
+    while (1) { 
         char jogador1[50], jogador2[50];
         int pontosJogador1 = 0, pontosJogador2 = 0;
         char *jogadorAtual = jogador1;
@@ -137,15 +136,15 @@ int main() {
         char resposta[50];
         int tentativa, acertou = 0, turnos = 0;
 
-        while (turnos < 2) { // Cada jogador joga uma vez antes de verificar o resultado
-            printf("\nAgora é a vez de %s\n", jogadorAtual);
+        while (turnos < 2) { 
+            printf("\n É a vez de: %s\n", jogadorAtual);
 
             printf("\nSelecione o ecossistema:\n");
             printf("1. Deserto\n2. Oceano\n3. Floresta\n4. Neve\n5. Montanha\n6. Sair\n");
             scanf("%d", &opcaoEcossistema);
 
             if (opcaoEcossistema == 6) {
-                break; // Sair do jogo
+                break; 
             }
 
             Node *listaAnimaisEcossistema = selecionarListaEcossistema(opcaoEcossistema, deserto, oceano, floresta, neve, montanha);
@@ -156,7 +155,7 @@ int main() {
 
             Node *animalSelecionado = selecionarAnimalAleatorio(listaAnimaisEcossistema, dificuldade);
             if (animalSelecionado == NULL) {
-                printf("Não há animais disponíveis para a dificuldade selecionada neste ecossistema.\n");
+                printf("Não tem animais disponíveis para a dificuldade selecionada nesse ecossistema.\n");
                 continue;
             }
 
@@ -170,7 +169,7 @@ int main() {
                 if (strcasecmp(resposta, animalSelecionado->nome) == 0) {
                     printf("\nParabéns! Você acertou! O animal é: %s\n", animalSelecionado->nome);
                     (*pontosAtual)++;
-                    acertou = 1; // Correct answer, continue the turn
+                    acertou = 1; 
                     break;
                 } else {
                     printf("Que pena! Você errou.\n");
@@ -203,7 +202,7 @@ int main() {
                 printf("O vencedor é %s!\n", jogador2);
             } else {
                 printf("Empate! O jogo será reiniciado.\n\n");
-                continue; // Reinicia o jogo se for empate
+                continue; 
             }
 
             printf("Deseja jogar novamente? (S/N): ");
