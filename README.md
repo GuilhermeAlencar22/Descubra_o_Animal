@@ -1,4 +1,4 @@
-# README para o Projeto de Jogo em C: Descubra o Animal
+# Projeto de Jogo em C: Descubra o Animal
 
 ## Descrição
 Este programa em C é um jogo interativo de adivinhação chamado "Descubra o Animal". Ele permite que dois jogadores se revezem para adivinhar animais com base em dicas fornecidas. Os animais estão categorizados em diferentes ecossistemas, como deserto, oceano, floresta, neve e montanha, e os jogadores podem escolher o ecossistema e o nível de dificuldade antes de começar a adivinhar.
