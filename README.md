@@ -43,7 +43,3 @@ Para compilar e executar o programa, siga estas instruções:
 ## Conclusão
 
 Este jogo oferece uma maneira divertida e educativa de aprender sobre animais de diferentes ecossistemas, testando o conhecimento dos jogadores de maneira interativa. É ideal para jogar em ambiente educacional ou como uma atividade recreativa entre amigos e familiares.
-
----
-
-Para mais informações sobre modificações e personalizações, sinta-se à vontade para examinar e modificar o código conforme necessário. Divirta-se jogando e aprendendo com o "Descubra o Animal"!
